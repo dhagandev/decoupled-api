@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var wordCtrl = require('../controllers/word');
 
-/* GET home page. */
-router.get('/', wordCtrl.getAll);
+router.get('/api', (req, res) => {
+	res.send({express: "EXPRESS IS CONNECT TO REACT"})
+})
 
 module.exports = router;
