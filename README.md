@@ -29,6 +29,7 @@ Determine the db models. In terminal open mongo shell by using 'mongo'.
 'db.(db name).insert({(model info)})'
 'show collections'
 'db.(db name).find({})'
+
 Check out the routes, models, and controller of this project to see how to format those things. Since this is an api we eventually will not have a view.
 
 Check out commits to see next steps of how to connect mongodb

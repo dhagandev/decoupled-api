@@ -16,15 +16,15 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
   'google',
   {
-    successRedirect : 'back',
-    failureRedirect : '/'
+    successRedirect : '/users',
+    failureRedirect : '/users'
   }
 ));
 
 // OAuth logout route
 router.get('/logout', function(req, res){
   req.logout();
-  res.redirect('back');
+  res.redirect('/users');
 });
 
 module.exports = router;

@@ -15,7 +15,7 @@ function index(req, res, next) {
 		if (err) {
 			return next(err);
 		}
-		res.render('/', {
+		res.render('index', {
 			users, 
 			user: req.user,
 			name: req.query.name,
@@ -27,7 +27,7 @@ function index(req, res, next) {
 function getAllUsers(req, res, next) {
 	User.find({})
 	.then(users => {
-		res.render('/', {
+		res.render('index', {
 			users,
 			user: req.user
 		});
