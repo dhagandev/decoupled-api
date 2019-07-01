@@ -5,6 +5,13 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= express %></h1>
+    <h1>Test test <%= express %></h1>
+    <div class="user-based">
+		<% if (user) { %>
+			<a href="/logout">Log Out</a>
+		<% } else { %>
+			<a href="/auth/google"> Log in with Google</a>
+		<% } %>
+	</div>
   </body>
 </html>

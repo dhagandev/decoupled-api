@@ -30,3 +30,5 @@ Determine the db models. In terminal open mongo shell by using 'mongo'.
 'show collections'
 'db.(db name).find({})'
 Check out the routes, models, and controller of this project to see how to format those things. Since this is an api we eventually will not have a view.
+
+Check out model for how to create a login through Google
