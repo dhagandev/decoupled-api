@@ -1,19 +1,45 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
+var fs = require('fs');
+var socketio = require('socket.io');
+var https = require('https');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var passport = require('passport');
 var methodOverride = require('method-override');
 
-require('dotenv').config();
-
 var app = express();
+
+var allowedOrigins = ['http://localhost:3000',
+					  'https://accounts.google.com/*'];
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 require('./config/database');
 require('./config/passport');
 require('./config/index');
+
+var certOptions = {
+	key: process.env.GOOGLE_CLIENT_ID,
+	cert: process.env.GOOGLE_SECRET
+}
+
+var server = https.createServer(certOptions, app);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -38,6 +64,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+var io = socketio(server)
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -56,5 +84,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
